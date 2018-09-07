@@ -1,6 +1,7 @@
 const https = require('https');
 const path = require('path');
 const URL = require('url').URL;
+const ejs = require('ejs');
 
 const owner = 'brettapeters';
 const repo = 'GCPFunctionBlog';
@@ -15,9 +16,10 @@ exports.getHtmlFromGithub = (req, res) => {
     .then((parsedNames) => parsedNames.sort(reverseChronological))
     .then((sortedPosts) => sortedPosts.map((post) => post.filename))
     .then((filenames) => Promise.all(filenames.map(getHtml)))
-    .then((contents) => {
+    .then(renderPage)
+    .then((html) => {
     	res.setHeader('Content-Type', 'text/html');
-      	res.status(200).send(contents.join('\n\n'));
+      	res.status(200).send(html);
     })
     .catch((err) => {
         res.status(500).send(err.message);
@@ -96,4 +98,17 @@ function getHtml(filename) {
             reject(err);
         });
     });
+}
+
+const template = `<!DOCTYPE html>
+<html>
+    <head>GCPFunctionBlog</head>
+    <body>
+        <%- contents.join('<hr/>'); %>
+    </body>
+</html>
+`;
+
+function renderPage(contents) {
+    return ejs.render(template, { contents });
 }
