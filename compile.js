@@ -22,7 +22,7 @@ exports.getHtmlFromGithub = (req, res) => {
       	res.status(200).send(html);
     })
     .catch((err) => {
-        res.status(500).send(err.message);
+        res.status(500).send(JSON.stringify(err, null, 2));
     });
 };
 
@@ -46,7 +46,10 @@ function getFilenames() {
                     const fileNames = contents.map((content) => content.name);
                     resolve(fileNames);
                 } catch(err) {
-                    reject(err);
+                    reject({
+                        debug: data,
+                        message: err.message
+                    });
                 }
             });
         }).on("error", (err) => {
