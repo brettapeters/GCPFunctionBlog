@@ -1,4 +1,4 @@
-# Vocat erit pharetraque ille tellussssss
+# Vocat erit pharetraque ille telluss
 
 ## Fecerat corporis condeturque fuit sortita de Alba yayyyy
 
