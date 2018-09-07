@@ -22,7 +22,7 @@ exports.getHtmlFromGithub = (req, res) => {
       	res.status(200).send(html);
     })
     .catch((err) => {
-        res.status(500).send(JSON.stringify(err, null, 2));
+        res.status(500).send(err);
     });
 };
 

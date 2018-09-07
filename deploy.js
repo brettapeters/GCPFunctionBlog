@@ -58,6 +58,7 @@ function getPage(url) {
                 data += chunk;
             });
             resp.on('end', () => {
+                if (resp.statusCode > 399) reject(data);
                 resolve(data);
             });
         }).on("error", (err) => {
