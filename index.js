@@ -102,7 +102,9 @@ function getHtml(filename) {
 
 const template = `<!DOCTYPE html>
 <html>
-    <head>GCPFunctionBlog</head>
+    <head>
+        <title>GCPFunctionBlog</title>
+    </head>
     <body>
         <%- contents.join('<hr/>'); %>
     </body>
