@@ -4,8 +4,10 @@ const URL = require('url').URL;
 
 const owner = 'brettapeters';
 const repo = 'GCPFunctionBlog';
+const ref = 'gh-pages';
 const apiBase = 'api.github.com';
 const endpoint = `/repos/${owner}/${repo}/contents/posts`;
+const params = `?ref=${ref}`;
 
 exports.getHtmlFromGithub = (req, res) => {
   getFilenames()
@@ -26,7 +28,7 @@ function getFilenames() {
     return new Promise((resolve, reject) => {
         https.get({
             hostname: apiBase,
-            path: endpoint,
+            path: endpoint + params,
             headers: {
                 'User-Agent': 'node6',
                 accept: 'application/vnd.github.v3+json'
@@ -77,7 +79,7 @@ function getHtml(filename) {
     return new Promise((resolve, reject) => {
         https.get({
             hostname: apiBase,
-            path: path.join(endpoint, filename),
+            path: path.join(endpoint, filename + params),
             headers: {
                 'User-Agent': 'node6',
                 accept: 'application/vnd.github.VERSION.html'
